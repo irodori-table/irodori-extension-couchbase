@@ -404,7 +404,7 @@
   },
   "source": {
     "marketplaceId": "irodori.couchbase",
-    "repository": "https://github.com/hjosugi/irodori-extension-couchbase",
+    "repository": "https://github.com/irodori-table/irodori-extension-couchbase",
     "knowledgeEngineStatus": "recognized_no_connector",
     "adapter": null,
     "adapterSha256": null,
