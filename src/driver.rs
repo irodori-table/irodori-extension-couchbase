@@ -1,3 +1,4 @@
+use irodori_connector_abi::{collect_url_auth, option_bool, option_string, push_sensitive};
 use std::collections::HashMap;
 use std::sync::{Mutex, OnceLock};
 
@@ -503,7 +504,7 @@ fn connection(connection_id: &str) -> Result<CouchbaseConnection, IrodoriConnect
 fn build_url(request: &Value) -> String {
     let host = option_string(request, &["host", "endpoint"]).unwrap_or_else(|| "127.0.0.1".into());
     let port = option_string(request, &["queryPort", "port"]).unwrap_or_else(|| "8093".into());
-    let scheme = if bool_option(request, &["tls", "ssl"]).unwrap_or(false) {
+    let scheme = if option_bool(request, &["tls", "ssl"]).unwrap_or(false) {
         "https"
     } else {
         "http"
@@ -519,83 +520,6 @@ fn normalize_url(value: &str) -> String {
         format!("https://{}:18093", rest.trim_end_matches('/'))
     } else {
         value.to_string()
-    }
-}
-
-fn request_containers(request: &Value) -> Vec<&Value> {
-    [
-        Some(request),
-        request.get("profile"),
-        request.get("options"),
-        request.get("auth"),
-        request.get("secrets"),
-        request
-            .get("profile")
-            .and_then(|profile| profile.get("options")),
-        request
-            .get("profile")
-            .and_then(|profile| profile.get("auth")),
-        request
-            .get("profile")
-            .and_then(|profile| profile.get("secrets")),
-    ]
-    .into_iter()
-    .flatten()
-    .collect()
-}
-
-fn option_string(request: &Value, fields: &[&str]) -> Option<String> {
-    request_containers(request)
-        .into_iter()
-        .find_map(|container| {
-            fields.iter().find_map(|field| {
-                container
-                    .get(*field)
-                    .map(|value| match value {
-                        Value::String(value) => value.clone(),
-                        Value::Number(value) => value.to_string(),
-                        Value::Bool(value) => value.to_string(),
-                        _ => String::new(),
-                    })
-                    .map(|value| value.trim().to_string())
-                    .filter(|value| !value.is_empty())
-            })
-        })
-}
-
-fn bool_option(request: &Value, fields: &[&str]) -> Option<bool> {
-    request_containers(request)
-        .into_iter()
-        .find_map(|container| {
-            fields
-                .iter()
-                .find_map(|field| container.get(*field).and_then(Value::as_bool))
-        })
-}
-
-fn push_sensitive(values: &mut Vec<String>, value: Option<&str>) {
-    if let Some(value) = value.map(str::trim).filter(|value| !value.is_empty()) {
-        if !values.iter().any(|existing| existing == value) {
-            values.push(value.to_string());
-        }
-    }
-}
-
-fn collect_url_auth(url: &str, values: &mut Vec<String>) {
-    let Some(after_scheme) = url.split_once("://").map(|(_, rest)| rest) else {
-        return;
-    };
-    let Some(auth) = after_scheme
-        .split('/')
-        .next()
-        .and_then(|host| host.split('@').next())
-    else {
-        return;
-    };
-    if auth.contains(':') {
-        for part in auth.split(':') {
-            push_sensitive(values, Some(part));
-        }
     }
 }
 
