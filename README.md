@@ -1,6 +1,3 @@
-<!-- i18n: language-switcher -->
-[English](README.md) | [日本語](README.ja.md)
-
 # Couchbase Connector
 
 Native Irodori Table connector extension for Couchbase.
@@ -16,7 +13,7 @@ This crate packages the connector metadata, native ABI exports, and driver imple
 - Native ABI: `irodori.connector.native.v1`
 - Driver linked: `yes`
 - Marketplace visibility: `public`
-- Package version: `0.1.3`
+- Package version: `0.1.6`
 
 The package uses the connector metadata and native driver directly; no desktop adapter source snapshot is required.
 
@@ -52,7 +49,6 @@ The connector advertises these authentication modes so clients can render the ri
 | `userPassword` | User/password | `userPassword` | `password` |
 | `clientCertificate` | Client certificate / mTLS | `certificate` | `privateKey`, `privateKeyPassphrase` |
 | `ldap` | LDAP user/password | `userPassword` | `password` |
-| `saml` | SAML SSO | `saml` | `token` |
 | `oidc` | OIDC | `oauth2` | `token` |
 | `customDriverOptions` | Custom driver options | `custom` | `password`, `token`, `privateKey`, `privateKeyPassphrase` |
 
@@ -79,7 +75,3 @@ make build
 ```
 
 Release packages place platform-specific native artifacts under `dist/native`.
-
-## License
-
-0BSD. You can use, copy, modify, and distribute this project for almost any purpose.
