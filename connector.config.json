@@ -240,27 +240,6 @@
           ]
         },
         {
-          "id": "saml",
-          "label": "SAML SSO",
-          "kind": "saml",
-          "secretPurposes": [
-            "token"
-          ],
-          "fields": [
-            {
-              "id": "idpUrl",
-              "label": "Identity provider URL",
-              "type": "uri"
-            },
-            {
-              "id": "assertion",
-              "label": "SAML assertion",
-              "type": "secret",
-              "secretPurpose": "token"
-            }
-          ]
-        },
-        {
           "id": "oidc",
           "label": "OIDC",
           "kind": "oauth2",
@@ -709,27 +688,6 @@
             "type": "secret",
             "secretPurpose": "password",
             "profileField": "password"
-          }
-        ]
-      },
-      {
-        "id": "saml",
-        "label": "SAML SSO",
-        "kind": "saml",
-        "secretPurposes": [
-          "token"
-        ],
-        "fields": [
-          {
-            "id": "idpUrl",
-            "label": "Identity provider URL",
-            "type": "uri"
-          },
-          {
-            "id": "assertion",
-            "label": "SAML assertion",
-            "type": "secret",
-            "secretPurpose": "token"
           }
         ]
       },

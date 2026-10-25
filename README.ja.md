@@ -52,7 +52,6 @@ Rustクレートは `src/lib.rs` からネイティブABIをエクスポート�
 | `userPassword` | ユーザー/パスワード | `userPassword` | `パスワード` |
 | `clientCertificate` | クライアント証明書 / mTLS | `certificate` | `秘密鍵`, `秘密鍵パスフレーズ` |
 | `ldap` | LDAPユーザー/パスワード | `userPassword` | `パスワード` |
-| `saml` | SAML SSO | `saml` | `トークン` |
 | `oidc` | OIDC | `oauth2` | `トークン` |
 | `customDriverOptions` | カスタムドライバオプション | `custom` | `パスワード`, `トークン`, `秘密鍵`, `秘密鍵パスフレーズ` |
 

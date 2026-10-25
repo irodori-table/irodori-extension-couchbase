@@ -52,7 +52,6 @@ The connector advertises these authentication modes so clients can render the ri
 | `userPassword` | User/password | `userPassword` | `password` |
 | `clientCertificate` | Client certificate / mTLS | `certificate` | `privateKey`, `privateKeyPassphrase` |
 | `ldap` | LDAP user/password | `userPassword` | `password` |
-| `saml` | SAML SSO | `saml` | `token` |
 | `oidc` | OIDC | `oauth2` | `token` |
 | `customDriverOptions` | Custom driver options | `custom` | `password`, `token`, `privateKey`, `privateKeyPassphrase` |
 
